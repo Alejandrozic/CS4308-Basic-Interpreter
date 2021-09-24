@@ -1,5 +1,5 @@
 """
-Tested with Python 3.6.4
+    Tested on Python 3.6.4 and Python 3.7.4
 """
 
 import sys
