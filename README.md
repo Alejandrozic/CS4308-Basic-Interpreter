@@ -6,7 +6,7 @@ The grammar can be found [here](docs/grammar.txt).
 
 The source file(s) with qBasic can be found [here](source_files).
 
-The interpreter is implemented in Python and can be foun d [here](interpreter).
+The interpreter is implemented in Python and can be found [here](interpreter).
 
 ## Requirements
 1. Download or clone the repository. 
