@@ -6,4 +6,11 @@ The grammar can be found [here](docs/grammar.txt).
 
 The source file(s) with qBasic can be found [here](source_files).
 
+## Requirements
+1. Download or clone the repository. 
+2. Python 3.6 or newer.
+
 ## Usage
+```shell script
+python.exe /path/run.py
+```
