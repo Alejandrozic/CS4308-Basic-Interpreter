@@ -1,0 +1,35 @@
+# ------------- #
+# -- GRAMMAR -- #
+# ------------- #
+
+/** ---- Statement(s) ---- **/
+
+<input_statement>   -> INPUT "<strings>" , <variable_name>
+<rem_statement>     -> REM <strings>
+<if_else_statement> -> IF <variable_name> <operator> <constant> THEN <print_statement> ELSE <print_statement>
+<print_statement>   -> PRINT <variable_name>|PRINT <constant>
+<end_statement>     -> END
+<assign_statement>  -> <variable_name> = <constant>
+
+
+/** ---- Non-Terminals ---- **/
+
+<variable_name> -> <abc_low>|<abc_cap>|<variable_name>
+<constant>      -> "<strings>"|<number>
+<strings>       -> <string> <strings>|<string>
+<string>        -> <chars>
+<chars>         -> <chars>|<char>
+<char>          -> <abc_low>|<abc_cap>|<non_zero_digit>|<zero_digit>
+<number>        -> <non_zero_digit><digits>|<digits> # Extra logic to prevent a zero leading number #
+<digits>        -> <non_zero_digit>|<zero_digit>
+<operator>      -> <gt_op>|<lt_op>
+
+
+/** ---- Terminals ---- **/
+
+<abc_low>           -> a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|y|z
+<abc_cap>           -> A|B|C|D|E|F|G|H|I|J|K|L|M|N|O|P|Q|R|S|T|U|V|W|X|Y|Z
+<non_zero_digit>    -> 1|2|3|4|5|6|7|8|9
+<zero_digit>        -> 0
+<lt_op>             -> <
+<gt_op>             -> >
