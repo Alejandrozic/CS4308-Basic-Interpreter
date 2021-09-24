@@ -16,5 +16,11 @@ The interpreter is implemented in Python and can be found [here](interpreter).
 
 ## Usage
 ```shell script
+# Use default demo qbasic source file
 python.exe /path/run.py
+
+-or-
+
+# Specify the qbasic source file
+python.exe /path/run.py /path/source_files/example1.bas
 ```
