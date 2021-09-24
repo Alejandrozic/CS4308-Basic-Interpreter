@@ -1,0 +1,35 @@
+------------Line--------------
+10 REM "This code will check if an input number is negative or not"
+-------Scanned Tokens---------
+REM_TOK          REM
+CONST_STR_TOK    "This code will check if an input number is negative or not"
+
+
+------------Line--------------
+20 INPUT "Enter Your Number" , number
+-------Scanned Tokens---------
+INPUT_TOK        INPUT
+CONST_STR_TOK    "Enter Your Number"
+COMMA_TOK        ,
+ID_TOK           number
+
+
+------------Line--------------
+30 IF number < 0 THEN PRINT "Number is negative" ELSE PRINT "Number is non negative"
+-------Scanned Tokens---------
+IF_TOK           IF
+ID_TOK           number
+LT_TOK           <
+CONST_INT_TOK    0
+THEN_TOK         THEN
+PRINT_TOK        PRINT
+CONST_STR_TOK    "Number is negative"
+ELSE_TOK         ELSE
+PRINT_TOK        PRINT
+CONST_STR_TOK    "Number is non negative"
+
+
+------------Line--------------
+40 END
+-------Scanned Tokens---------
+END_TOK          END

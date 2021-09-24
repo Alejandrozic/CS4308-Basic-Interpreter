@@ -1,0 +1,34 @@
+------------Line--------------
+10 REM "This code will store a string into a variable and print it"
+-------Scanned Tokens---------
+REM_TOK          REM
+CONST_STR_TOK    "This code will store a string into a variable and print it"
+
+
+------------Line--------------
+20 string = "Hello World"
+-------Scanned Tokens---------
+ID_TOK           string
+ASSIGN_TOK       =
+CONST_STR_TOK    "Hello World"
+
+
+------------Line--------------
+30 integer = 23
+-------Scanned Tokens---------
+ID_TOK           integer
+ASSIGN_TOK       =
+CONST_INT_TOK    23
+
+
+------------Line--------------
+40 PRINT string
+-------Scanned Tokens---------
+PRINT_TOK        PRINT
+ID_TOK           string
+
+
+------------Line--------------
+50 END
+-------Scanned Tokens---------
+END_TOK          END
