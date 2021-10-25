@@ -17,5 +17,5 @@ if __name__ == '__main__':
         file = sys.argv[1]
     except IndexError:
         # If no arguments are passed, use the default
-        file = 'source_files/example3-force-error.bas'
+        file = 'source_files/example1.bas'
     main()
