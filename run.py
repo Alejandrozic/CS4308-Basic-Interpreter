@@ -3,12 +3,12 @@
 """
 
 import sys
-import interpreter.lexical_analyzer
+from interpreter.parser import Parser
 
 
 def main():
-    lexical_analyzer = interpreter.lexical_analyzer.LexicalAnalyzer(file)
-    lexical_analyzer.run()
+    parser = Parser(file)
+    parser.run()
 
 
 if __name__ == '__main__':
@@ -17,5 +17,5 @@ if __name__ == '__main__':
         file = sys.argv[1]
     except IndexError:
         # If no arguments are passed, use the default
-        file = 'source_files/example1.bas'
+        file = 'source_files/example3-force-error.bas'
     main()

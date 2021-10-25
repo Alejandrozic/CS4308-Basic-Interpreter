@@ -1,0 +1,28 @@
+../PycharmProjects/CS4308-Basic-Interpreter/run.py
+<class 'interpreter.statements.CommentStatement'>
+['REM_TOK', 'CONST_STR_TOK']
+['REM', '"Misplaced the THEN statement on purpose to engage error"']
+
+
+<class 'interpreter.statements.InputStatement'>
+['INPUT_TOK', 'CONST_STR_TOK', 'COMMA_TOK', 'ID_TOK']
+['INPUT', '"Enter Your Number"', ',', 'number']
+
+
+Traceback (most recent call last):
+  File "C:\Users\userab\PycharmProjects\CS4308-Basic-Interpreter\interpreter\statements.py", line 180, in statement_factory
+    return mapping[expr_tokens]
+KeyError: "['IF_TOK', 'ID_TOK', 'LT_TOK', 'CONST_INT_TOK', 'CONST_STR_TOK', 'ELSE_TOK', 'PRINT_TOK', 'CONST_STR_TOK', 'THEN_TOK', 'PRINT_TOK']"
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:/Users/userab/PycharmProjects/CS4308-Basic-Interpreter/run.py", line 21, in <module>
+    main()
+  File "C:/Users/userab/PycharmProjects/CS4308-Basic-Interpreter/run.py", line 11, in main
+    parser.run()
+  File "C:\Users\userab\PycharmProjects\CS4308-Basic-Interpreter\interpreter\parser.py", line 22, in run
+    stmnt_class = statement_factory(expression)
+  File "C:\Users\userab\PycharmProjects\CS4308-Basic-Interpreter\interpreter\statements.py", line 184, in statement_factory
+    raise SyntaxErrorInvalidExpression(f"Expression '{expr_values}' is not valid")
+interpreter.syntax_errors.SyntaxErrorInvalidExpression: Expression 'IF number < 0 "Number is negative" ELSE PRINT "Number is non negative" THEN PRINT' is not valid

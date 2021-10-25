@@ -17,3 +17,8 @@ class SyntaxErrorInvalidInteger(Exception):
 class SyntaxErrorInvalidCharacter(Exception):
     """ Character was not defined in our grammar and thus is not supported """
     pass
+
+
+class SyntaxErrorInvalidExpression(Exception):
+    """ Expression is not Valid [supported] """
+    pass

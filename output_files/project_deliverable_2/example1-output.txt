@@ -1,0 +1,24 @@
+../PycharmProjects/CS4308-Basic-Interpreter/run.py
+<class 'interpreter.statements.CommentStatement'>
+['REM_TOK', 'CONST_STR_TOK']
+['REM', '"This code will store a string into a variable and print it"']
+
+
+<class 'interpreter.statements.AssignmentStatement'>
+['ID_TOK', 'ASSIGN_TOK', 'CONST_STR_TOK']
+['string', '=', '"Hello World"']
+
+
+<class 'interpreter.statements.AssignmentStatement'>
+['ID_TOK', 'ASSIGN_TOK', 'CONST_INT_TOK']
+['integer', '=', 23]
+
+
+<class 'interpreter.statements.PrintStatement'>
+['PRINT_TOK', 'ID_TOK']
+['PRINT', 'string']
+
+
+<class 'interpreter.statements.EndStatement'>
+['END_TOK']
+['END']

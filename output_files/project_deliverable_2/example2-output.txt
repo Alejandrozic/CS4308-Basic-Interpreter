@@ -1,0 +1,19 @@
+../PycharmProjects/CS4308-Basic-Interpreter/run.py
+<class 'interpreter.statements.CommentStatement'>
+['REM_TOK', 'CONST_STR_TOK']
+['REM', '"This code will check if an input number is negative or not"']
+
+
+<class 'interpreter.statements.InputStatement'>
+['INPUT_TOK', 'CONST_STR_TOK', 'COMMA_TOK', 'ID_TOK']
+['INPUT', '"Enter Your Number"', ',', 'number']
+
+
+<class 'interpreter.statements.IfElseStatement'>
+['IF_TOK', 'ConditionalStatement', 'THEN_TOK', 'PrintStatement', 'ELSE_TOK', 'PrintStatement']
+['IF', 'number', '<', 0, 'THEN', 'PRINT', '"Number is negative"', 'ELSE', 'PRINT', '"Number is non negative"']
+
+
+<class 'interpreter.statements.EndStatement'>
+['END_TOK']
+['END']
