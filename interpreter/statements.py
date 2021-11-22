@@ -7,6 +7,8 @@
 
 from interpreter import memory
 from interpreter.syntax_errors import *
+from interpreter.runtime_errors import *
+from interpreter.tokens import Tokens
 
 
 class AssignmentStatement:
@@ -21,8 +23,15 @@ class AssignmentStatement:
         pass
 
     def execute(self):
-        """ Reserved Interpreter component implementation """
-        pass
+        """
+            Assign Value to a Variable
+        """
+        index_of_id     = 0
+        index_of_value  = 2
+        memory.add_assignment(
+            id_name=self.expression[index_of_id].value,
+            value=self.expression[index_of_value].value,
+        )
 
 
 class CommentStatement:
@@ -37,7 +46,7 @@ class CommentStatement:
         pass
 
     def execute(self):
-        """ Reserved Interpreter component implementation """
+        """ No Action on Comment Statements """
         pass
 
 
@@ -53,14 +62,12 @@ class EndStatement:
         pass
 
     def execute(self):
-        """ Reserved Interpreter component implementation """
-        pass
+        """ Terminate Execution of Program """
+        raise ProgramTermination('')
 
 
 class PrintStatement:
-    """
-        Prints an ID Token.
-    """
+
     def __init__(self, expression):
         self.expression = expression
         self.expr_tokens = [i.token_type.name for i in expression]
@@ -68,11 +75,20 @@ class PrintStatement:
 
     def validate(self):
         """ ID Token must be defined """
-        pass
+        if self.expression[-1].token_type == Tokens.ID_TOK:
+            id_name = self.expression[-1].value
+            if memory.get_assignment(id_name) is None:
+                raise UndefinedVariableName(f'Variable Name "{id_name}" not defined.')
 
     def execute(self):
-        """ Reserved Interpreter component implementation """
-        pass
+        """ Print the value of an ID Token """
+        self.validate()
+        if self.expression[-1].token_type == Tokens.ID_TOK:
+            id_name = self.expression[-1].value
+            value = memory.get_assignment(id_name)
+        else:
+            value = self.expression[-1].value
+        print(value)
 
 
 class InputStatement:
@@ -88,7 +104,20 @@ class InputStatement:
 
     def execute(self):
         """ Reserved Interpreter component implementation """
-        pass
+        id_name     = self.expression[-1].value
+        question    = self.expression[-3].value
+        value       = input(question+' ')
+
+        # -- Check if input is an Integer -- #
+        try:
+            value = int(value)
+        except ValueError:
+            pass
+
+        memory.add_assignment(
+            id_name=id_name,
+            value=value,
+        )
 
 
 class IfElseStatement:
@@ -133,8 +162,11 @@ class IfElseStatement:
         pass
 
     def execute(self):
-        """ Reserved Interpreter component implementation """
-        pass
+        """ Implements Switch Logic for IF/ELSE """
+        if self.conditional_statement.execute() is True:
+            self.then_statement.execute()
+        else:
+            self.else_statement.execute()
 
 
 class ConditionalStatement:
@@ -145,12 +177,41 @@ class ConditionalStatement:
         self.expr_values = [i.value for i in expression]
 
     def validate(self):
-        """ Nothing to Validate """
-        pass
+        """ Validate ID tokens exists [where applicable] """
+        left_expr = self.expression[0]
+        if left_expr.token_type == Tokens.ID_TOK:
+            id_name = left_expr.value
+            if memory.get_assignment(id_name) is None:
+                raise UndefinedVariableName(f'Variable Name "{id_name}" not defined.')
+        right_expr = self.expression[2]
+        if right_expr.token_type == Tokens.ID_TOK:
+            id_name = right_expr.value
+            if memory.get_assignment(id_name) is None:
+                raise UndefinedVariableName(f'Variable Name "{id_name}" not defined.')
 
     def execute(self):
-        """ Reserved Interpreter component implementation """
-        pass
+        """ Perform arithmetic condition check """
+        left_expr       = self.expression[0]
+        operator_expr   = self.expression[1]
+        right_expr      = self.expression[2]
+        # -- Pull Left side value from memory if ID Token -- #
+        if left_expr.token_type == Tokens.ID_TOK:
+            left_value = memory.get_assignment(left_expr.value)
+        else:
+            left_value = left_expr.value
+        # -- Pull Right side value from memory if ID Token -- #
+        if right_expr.token_type == Tokens.ID_TOK:
+            right_value = memory.get_assignment(right_expr.value)
+        else:
+            right_value = right_expr.value
+        # -- Operator Logic -- #
+        if operator_expr.token_type == Tokens.GT_TOK:
+            return left_value > right_value
+        elif operator_expr.token_type == Tokens.LT_TOK:
+            return left_value < right_value
+        else:
+            # -- Unsupported operator will get caught by the Parser -- #
+            pass
 
 
 def statement_factory(expression: list):
@@ -162,18 +223,18 @@ def statement_factory(expression: list):
         return IfElseStatement
 
     mapping = {
-        str(['ID_TOK', 'ASSIGN_TOK', 'CONST_STR_TOK']): AssignmentStatement,
-        str(['ID_TOK', 'ASSIGN_TOK', 'CONST_INT_TOK']): AssignmentStatement,
-        str(['INPUT_TOK', 'CONST_STR_TOK', 'COMMA_TOK', 'ID_TOK']): InputStatement,
-        str(['REM_TOK', 'CONST_STR_TOK']): CommentStatement,
-        str(['PRINT_TOK', 'ID_TOK']): PrintStatement,
-        str(['PRINT_TOK', 'CONST_INT_TOK']): PrintStatement,
-        str(['PRINT_TOK', 'CONST_STR_TOK']): PrintStatement,
-        str(['ID_TOK', 'LT_TOK', 'CONST_INT_TOK']): ConditionalStatement,
-        str(['ID_TOK', 'LT_TOK', 'CONST_STR_TOK']): ConditionalStatement,
-        str(['ID_TOK', 'GT_TOK', 'CONST_INT_TOK']): ConditionalStatement,
-        str(['ID_TOK', 'GT_TOK', 'CONST_STR_TOK']): ConditionalStatement,
-        str(['END_TOK']): EndStatement,
+        str(['ID_TOK', 'ASSIGN_TOK', 'CONST_STR_TOK'])              : AssignmentStatement,
+        str(['ID_TOK', 'ASSIGN_TOK', 'CONST_INT_TOK'])              : AssignmentStatement,
+        str(['INPUT_TOK', 'CONST_STR_TOK', 'COMMA_TOK', 'ID_TOK'])  : InputStatement,
+        str(['REM_TOK', 'CONST_STR_TOK'])                           : CommentStatement,
+        str(['PRINT_TOK', 'ID_TOK'])                                : PrintStatement,
+        str(['PRINT_TOK', 'CONST_INT_TOK'])                         : PrintStatement,
+        str(['PRINT_TOK', 'CONST_STR_TOK'])                         : PrintStatement,
+        str(['ID_TOK', 'LT_TOK', 'CONST_INT_TOK'])                  : ConditionalStatement,
+        str(['ID_TOK', 'LT_TOK', 'CONST_STR_TOK'])                  : ConditionalStatement,
+        str(['ID_TOK', 'GT_TOK', 'CONST_INT_TOK'])                  : ConditionalStatement,
+        str(['ID_TOK', 'GT_TOK', 'CONST_STR_TOK'])                  : ConditionalStatement,
+        str(['END_TOK'])                                            : EndStatement,
     }
 
     try:

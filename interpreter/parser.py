@@ -8,6 +8,7 @@
 
 from interpreter.lexical_analyzer import LexicalAnalyzer
 from interpreter.statements import *
+from interpreter.runtime_errors import *
 
 
 class Parser:
@@ -17,11 +18,13 @@ class Parser:
 
     def run(self):
         while self.lexical_analyzer.scanner.is_eof is False:
-            # Project Deliverable 2
-            expression = self.lexical_analyzer.get_next_expression()
+            # Project Deliverable 3
+            expression  = self.lexical_analyzer.get_next_expression()
             stmnt_class = statement_factory(expression)
-            stmnt = stmnt_class(expression)
-            print(stmnt_class)
-            print(stmnt.expr_tokens)
-            print(stmnt.expr_values)
-            print('\n')
+            stmnt       = stmnt_class(expression)
+            try:
+                stmnt.execute()
+            except ProgramTermination:
+                # -- Source Code requested Program termination
+                # -- by using the "END" keyword.
+                break
