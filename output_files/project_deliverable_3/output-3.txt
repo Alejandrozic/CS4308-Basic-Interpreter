@@ -1,0 +1,6 @@
+0 ['REM_TOK', 'CONST_STR_TOK'] ['REM', '"This code will store a string into a variable and print it"']
+1 ['ID_TOK', 'ASSIGN_TOK', 'CONST_STR_TOK'] ['string', '=', '"Hello World"']
+2 ['ID_TOK', 'ASSIGN_TOK', 'CONST_INT_TOK'] ['integer', '=', 23]
+3 ['PRINT_TOK', 'ID_TOK'] ['PRINT', 'string']
+Hello World
+4 ['END_TOK'] ['END']

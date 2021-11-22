@@ -1,0 +1,6 @@
+0 ['REM_TOK', 'CONST_STR_TOK'] ['REM', '"This code will check if an input number is negative or not"']
+1 ['INPUT_TOK', 'CONST_STR_TOK', 'COMMA_TOK', 'ID_TOK'] ['INPUT', '"Enter Your Number"', ',', 'number']
+"Enter Your Number" -9
+2 ['IF_TOK', 'ConditionalStatement', 'THEN_TOK', 'PrintStatement', 'ELSE_TOK', 'PrintStatement'] ['IF', 'number', '<', 0, 'THEN', 'PRINT', '"Number is negative"', 'ELSE', 'PRINT', '"Number is non negative"']
+"Number is negative"
+3 ['END_TOK'] ['END']
