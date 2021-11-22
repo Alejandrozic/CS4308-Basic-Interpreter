@@ -18,10 +18,12 @@ class Parser:
 
     def run(self):
         while self.lexical_analyzer.scanner.is_eof is False:
+            curr_line_num = self.lexical_analyzer.scanner.curr_line_num
             # Project Deliverable 3
             expression  = self.lexical_analyzer.get_next_expression()
             stmnt_class = statement_factory(expression)
             stmnt       = stmnt_class(expression)
+            print(curr_line_num, stmnt.expr_tokens, stmnt.expr_values)
             try:
                 stmnt.execute()
             except ProgramTermination:
